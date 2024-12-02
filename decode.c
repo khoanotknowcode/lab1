@@ -12,18 +12,19 @@ int main() {
 
     printf("Enter your input: ");
     fgets(str,sizeof(str),stdin);
+    printf("\n");
 
     uint32_t dec = 0;
 
-    if (str[0] == 0b11110000) {
+    if ((str[0] & 0b11111000) == 0b11110000) {
         if (str[0] != 0 && str[1] != 0 && str[2] != 0 && str[3] != 0)
-            dec = (str[0] & 0x7) | (str[1] & 0x3F) | (str[2] & 0x3F) | (str[3] & 0x3F);
-    } else if (str[0] == 0b11100000) {
+            dec = (str[0] & 0x7)<<18 | (str[1] & 0x3F)<<12 | (str[2] & 0x3F)<<6 | (str[3] & 0x3F);
+    } else if ((str[0] & 0b11110000) == 0b11100000) {
         if (str[0] != 0 && str[1] != 0 && str[2] != 0)
-            dec = (str[0] & 0xF) | (str[1] & 0x3F) | (str[2] & 0x3F);
-    } else if (str[0] == 0b11000000) {
+            dec = (str[0] & 0xF)<<12 | (str[1] & 0x3F)<<6 | (str[2] & 0x3F);
+    } else if ((str[0] & 0b11100000) == 0b11000000) {
         if (str[0] != 0 && str[1] != 0)
-            dec = (str[0] & 0x1F) | (str[1] & 0x3F);
+            dec = (str[0] & 0x1F)<<6 | (str[1] & 0x3F);
     } else {
         dec = str[0];
     }

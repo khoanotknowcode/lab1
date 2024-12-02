@@ -1,0 +1,4 @@
+Enter your input: 
+Input character : ʩ
+
+Codepoint of the character is 681
